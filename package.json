@@ -1,8 +1,8 @@
 {
-  "name": "react-phonebook",
+  "name": "user-management",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://AlexeySapr.github.io/react-phonebook",
+  "homepage": "https://AlexeySapr.github.io/user-management",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
