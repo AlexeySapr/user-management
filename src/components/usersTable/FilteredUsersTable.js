@@ -1,6 +1,6 @@
-// import { useEffect } from 'react';
+import { useEffect } from 'react';
 // import { useSelector } from 'react-redux';
-// import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 // import { selectors } from 'redux/phonebook';
 import { useGetUsersQuery } from 'redux/usersAPI';
 
@@ -10,7 +10,7 @@ import UsersTable from './UsersTable';
 
 const FilteredUsersTable = () => {
   //   const filter = useSelector(selectors.getFilter);
-  const { data: users, error } = useGetUsersQuery();
+  const { data: users, error, isLoading, isFetching } = useGetUsersQuery();
 
   //   const normalizedFilter = filter.toLowerCase();
 
@@ -21,19 +21,23 @@ const FilteredUsersTable = () => {
   //     );
   //   }
 
-  //   useEffect(() => {
-  //     if (error) {
-  //       toast.error(`Сan't get contacts info from server`);
-  //     }
-  //   }, [error]);
+  useEffect(() => {
+    if (error) {
+      toast.error(`Сan't get contacts info from server`);
+    }
+  }, [error]);
 
+  console.log('users: ', users);
   console.log('initData: ', initData);
+  console.log('error: ', error);
+  console.log('isLoading: ', isLoading);
+  console.log('isFetching: ', isFetching);
 
   return (
     <>
-      {/* {error && <Toaster />}
-      {!error && contacts && <ContactTable contacts={filteredContacts} />} */}
-      <UsersTable users={users} />
+      {error && <Toaster />}
+      {/*{!error && contacts && <ContactTable contacts={filteredContacts} />} */}
+      {!error && users && <UsersTable users={users} />}
     </>
   );
 };

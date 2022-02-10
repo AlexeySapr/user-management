@@ -31,7 +31,9 @@ const UsersTable = ({ users }) => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const copyUsers = [...users];
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -63,8 +65,6 @@ const UsersTable = ({ users }) => {
   useEffect(() => {
     const pageNum = Math.floor(users.length / rowsPerPage);
     if (page > pageNum) {
-      console.log('pageInUse: ', page);
-      console.log('pageNum: ', pageNum);
       setPage(pageNum);
     }
   }, [users.length, page, rowsPerPage]);
@@ -85,7 +85,7 @@ const UsersTable = ({ users }) => {
             />
 
             <TableBody>
-              {users
+              {copyUsers
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(user => (
@@ -110,7 +110,7 @@ const UsersTable = ({ users }) => {
 };
 
 UsersTable.propTypes = {
-  contacts: PropTypes.array.isRequired,
+  users: PropTypes.array.isRequired,
 };
 
 export default UsersTable;

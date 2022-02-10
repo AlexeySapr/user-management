@@ -63,10 +63,10 @@ function UsersTableHead(props) {
   );
 }
 
-UsersTableHead.propTypes = {
-  onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-};
+// UsersTableHead.propTypes = {
+//   onRequestSort: PropTypes.func.isRequired,
+//   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+//   orderBy: PropTypes.string.isRequired,
+// };
 
 export default UsersTableHead;
