@@ -40,7 +40,7 @@ function UsersTableHead(props) {
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow sx={{ backgroundColor: '#cfe8fc' }}>
         {headCells.map(headCell => (
           <TableCell
             key={headCell.id}

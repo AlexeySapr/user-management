@@ -8,10 +8,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import Paper from '@mui/material/Paper';
 
-// import ContactTableHead from './ContactTableHead';
 import UsersTableHead from './UsersTableHead';
 import UsersTableRow from './UsersTableRow';
-// import ContactTableRow from './ContactTableRow';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -33,8 +31,6 @@ const UsersTable = ({ users }) => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
   const [page, setPage] = useState(0);
-  console.log('page: ', page);
-  console.log('users.length: ', users.length);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (event, property) => {

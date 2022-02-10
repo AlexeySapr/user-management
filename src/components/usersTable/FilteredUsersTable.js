@@ -2,7 +2,7 @@
 // import { useSelector } from 'react-redux';
 // import toast, { Toaster } from 'react-hot-toast';
 // import { selectors } from 'redux/phonebook';
-// import { useGetContactsQuery } from 'services/contactsAPI';
+import { useGetUsersQuery } from 'redux/usersAPI';
 
 // import ContactTable from 'components/contactList/ContactTable';
 import initData from '../../tempData/tempData.json';
@@ -10,7 +10,7 @@ import UsersTable from './UsersTable';
 
 const FilteredUsersTable = () => {
   //   const filter = useSelector(selectors.getFilter);
-  //   const { data: contacts, error } = useGetContactsQuery();
+  const { data: users, error } = useGetUsersQuery();
 
   //   const normalizedFilter = filter.toLowerCase();
 
@@ -33,7 +33,7 @@ const FilteredUsersTable = () => {
     <>
       {/* {error && <Toaster />}
       {!error && contacts && <ContactTable contacts={filteredContacts} />} */}
-      <UsersTable users={initData} />
+      <UsersTable users={users} />
     </>
   );
 };

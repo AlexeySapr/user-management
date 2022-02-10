@@ -31,7 +31,7 @@ const UsersTableRow = ({
           loadingIndicator="Deleting..."
           variant="outlined"
         >
-          Delete
+          Update
         </LoadingButton>
       </TableCell>
     </TableRow>
@@ -41,7 +41,11 @@ const UsersTableRow = ({
 UsersTableRow.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  surname: PropTypes.string.isRequired,
+  birthday: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
 };
 
 export default UsersTableRow;
