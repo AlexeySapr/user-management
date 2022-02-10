@@ -4,6 +4,11 @@ import TableCell from '@mui/material/TableCell';
 import LoadingButton from '@mui/lab/LoadingButton';
 // import { useDeleteContactMutation } from 'services/contactsAPI';
 
+const customColumnStyle = {
+  wordWrap: 'break-word',
+  maxWidth: '1px',
+};
+
 const UsersTableRow = ({
   id,
   name,
@@ -19,10 +24,14 @@ const UsersTableRow = ({
     <TableRow hover role="listitem" tabIndex={-1}>
       <TableCell align="center">{name}</TableCell>
       <TableCell align="center">{surname}</TableCell>
-      <TableCell align="center">{birthday}</TableCell>
+      <TableCell align="center" style={customColumnStyle}>
+        {birthday}
+      </TableCell>
       <TableCell align="center">{phone}</TableCell>
       <TableCell align="center">{email}</TableCell>
-      <TableCell align="center">{createdAt}</TableCell>
+      <TableCell align="center" style={customColumnStyle}>
+        {createdAt}
+      </TableCell>
       <TableCell align="center">
         <LoadingButton
           //   onClick={() => onDelete(id)}

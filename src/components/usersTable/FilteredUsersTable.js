@@ -27,12 +27,6 @@ const FilteredUsersTable = () => {
     }
   }, [error]);
 
-  console.log('users: ', users);
-  console.log('initData: ', initData);
-  console.log('error: ', error);
-  console.log('isLoading: ', isLoading);
-  console.log('isFetching: ', isFetching);
-
   return (
     <>
       {error && <Toaster />}
