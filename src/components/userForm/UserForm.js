@@ -1,111 +1,89 @@
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-// import {
-//   useGetContactsQuery,
-//   useAddContactMutation,
-// } from 'services/contactsAPI';
 
-import { FormContacts, FormButton } from './UserForm.styled';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectors, actions } from 'redux/usersManagement';
+import { useAddUserMutation, useUpdateUserMutation } from 'redux/usersAPI';
 
-import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
-import PhoneMaskCustom from '../inputMasks/PhoneMaskCustom';
 
-const initState = { name: '', phone: '' };
+import { FormUser } from './FormUser.styled';
+import InputField from './InputField';
 
-const UserForm = () => {
+const initState = { name: '', surname: '', birthday: '', phone: '', email: '' };
+
+const UserForm = ({ closeModal, isAddUser, isUpdateUser }) => {
   const [formValues, setFormValues] = useState(() => initState);
+  const isModalAddUserOpen = useSelector(selectors.getOpenModalAddUser);
+  const isModalUpdateUserOpen = useSelector(selectors.getOpenModalUpdateUser);
+  const updateUserID = useSelector(selectors.getUpdateUserID);
 
-  // const { data: contacts, error: contactsError } = useGetContactsQuery();
-  // const [addContact, { isLoading }] = useAddContactMutation();
+  const [addUser, { isLoading }] = useAddUserMutation();
+  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
 
   const handleChange = event => {
-    // setFormValues({
-    //   ...formValues,
-    //   [event.target.name]: event.target.value,
-    // });
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    });
   };
-
-  // const isInContacts = ({ name, number }) => {
-  //   const normalizedName = name.toLowerCase().replace(/\s+/g, '');
-  //   const normalizedNumber = number.replace(/\D/g, '');
-  //   return contacts.some(contact => {
-  //     return (
-  //       contact.name.toLowerCase().replace(/\s+/g, '') === normalizedName ||
-  //       contact.phone.replace(/\D/g, '') === normalizedNumber
-  //     );
-  //   });
-  // };
 
   const onSubmit = event => {
     event.preventDefault();
 
     console.log('formValues: ', formValues);
 
-    // if (contactsError) {
-    //   toast.error(`Server not responding`);
-    //   return;
-    // }
+    updateUser({ updateUserID, ...formValues });
 
-    // if (isInContacts({ name, number })) {
-    //   toast.error('This contact already exists', {
-    //     duration: 3000,
-    //     position: 'top-center',
-    //   });
-    //   return;
-    // }
-
-    // addContact(formValues);
-    // toast.success(`Contact ${name} successfully added`);
-    // ressetForm();
-    setFormValues(initState);
+    // addUser(formValues);
+    // setFormValues(initState);
+    closeModal();
   };
 
   return (
     <>
       <Toaster />
-      <FormContacts onSubmit={onSubmit}>
-        <TextField
-          id="standard-basic"
-          label="Name"
-          name="name"
+      <FormUser onSubmit={onSubmit}>
+        <InputField
+          label={'Name'}
+          name={'name'}
           value={formValues.name}
           onChange={handleChange}
-          inputProps={{
-            inputMode: 'text',
-            pattern:
-              "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
-            title:
-              'Name may contain only letters, apostrophe, dash and spaces.',
-          }}
-          variant="standard"
-          sx={{ mb: 2 }}
-          required
         />
-        <TextField
-          id="standard-basic"
-          label="Phone"
-          name="phone"
+        <InputField
+          label={'Surname'}
+          name={'surname'}
+          value={formValues.surname}
+          onChange={handleChange}
+        />
+        <InputField
+          label={'Birthday'}
+          name={'birthday'}
+          value={formValues.birthday}
+          onChange={handleChange}
+        />
+        <InputField
+          label={'Phone'}
+          name={'phone'}
           value={formValues.phone}
           onChange={handleChange}
-          InputProps={{
-            inputMode: 'tel',
-            inputComponent: PhoneMaskCustom,
-          }}
-          variant="standard"
-          sx={{ mb: 2 }}
-          required
+        />
+        <InputField
+          label={'Email'}
+          name={'email'}
+          value={formValues.email}
+          onChange={handleChange}
         />
         <LoadingButton
           type="submit"
-          // loading={isLoading}
-          // disabled={isLoading}
+          loading={isLoading}
+          disabled={isLoading}
           loadingIndicator="Adding..."
           variant="outlined"
         >
           Add contact
         </LoadingButton>
-      </FormContacts>
+      </FormUser>
     </>
   );
 };

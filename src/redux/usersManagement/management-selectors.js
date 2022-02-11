@@ -5,3 +5,5 @@ export const getOpenModalAddUser = state =>
 
 export const getOpenModalUpdateUser = state =>
   state.managementReducer.isModalUpdateUserOpen;
+
+export const getUpdateUserID = state => state.managementReducer.updateUserID;

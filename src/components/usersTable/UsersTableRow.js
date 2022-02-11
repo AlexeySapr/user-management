@@ -38,7 +38,9 @@ const UsersTableRow = ({
       </TableCell>
       <TableCell align="center">
         <LoadingButton
-          onClick={() => dispatch(actions.openModalUdateUser(true))}
+          onClick={() =>
+            dispatch(actions.openModalUdateUser({ id, isModalopen: true }))
+          }
           variant="outlined"
         >
           Update
@@ -49,7 +51,7 @@ const UsersTableRow = ({
           loading={isDeleting}
           loadingIndicator="Deleting..."
           variant="outlined"
-          sx={{ ml: '7px' }}
+          sx={{ m: '5px' }}
         >
           Delete
         </LoadingButton>

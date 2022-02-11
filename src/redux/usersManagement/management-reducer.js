@@ -10,11 +10,16 @@ const isModalAddUserOpen = createReducer(false, {
 });
 
 const isModalUpdateUserOpen = createReducer(false, {
-  [actions.openModalUdateUser]: (_, { payload }) => payload,
+  [actions.openModalUdateUser]: (_, { payload }) => payload.isModalopen,
+});
+
+const updateUserID = createReducer(-1, {
+  [actions.openModalUdateUser]: (_, { payload }) => payload.id,
 });
 
 export default combineReducers({
   filter,
   isModalAddUserOpen,
   isModalUpdateUserOpen,
+  updateUserID,
 });
