@@ -77,6 +77,7 @@ const UsersTable = ({ users }) => {
             // sx={{ minWidth: 300 }}
             aria-labelledby="tableTitle"
             size={'normal'}
+            style={{ tableLayout: 'fixed' }}
           >
             <UsersTableHead
               order={order}

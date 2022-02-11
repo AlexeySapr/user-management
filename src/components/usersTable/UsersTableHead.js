@@ -5,6 +5,8 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import TableCell from '@mui/material/TableCell';
 
+import { UserTableHeadCell } from './UserTableHeadCell.styled';
+
 const headCells = [
   {
     id: 'name',
@@ -32,7 +34,7 @@ const headCells = [
   },
 ];
 
-function UsersTableHead(props) {
+const UsersTableHead = props => {
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler = property => event => {
     onRequestSort(event, property);
@@ -42,12 +44,7 @@ function UsersTableHead(props) {
     <TableHead>
       <TableRow sx={{ backgroundColor: '#cfe8fc' }}>
         {headCells.map(headCell => (
-          <TableCell
-            key={headCell.id}
-            align={'center'}
-            padding={'normal'}
-            sx={{ fontSize: 18, fontWeight: '600', textTransform: 'uppercase' }}
-          >
+          <UserTableHeadCell key={headCell.id} width={'70px'}>
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
@@ -55,13 +52,13 @@ function UsersTableHead(props) {
             >
               {headCell.label}
             </TableSortLabel>
-          </TableCell>
+          </UserTableHeadCell>
         ))}
-        <TableCell align={'center'} padding={'normal'}></TableCell>
+        <UserTableHeadCell width={'100px'} />
       </TableRow>
     </TableHead>
   );
-}
+};
 
 UsersTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,

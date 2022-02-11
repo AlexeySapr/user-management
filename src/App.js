@@ -12,7 +12,7 @@ const App = () => {
       <Container maxWidth="lg">
         <FilterSection>
           <LoadingButton
-            type="submit"
+            // onClick={() => onDelete(id)}
             loading={false}
             disabled={false}
             loadingIndicator="Adding..."
