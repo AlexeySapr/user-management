@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import TableCell from '@mui/material/TableCell';
 
 import { UserTableHeadCell } from './UserTableHeadCell.styled';
 

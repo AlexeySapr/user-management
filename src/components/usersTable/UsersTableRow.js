@@ -2,12 +2,13 @@ import PropTypes from 'prop-types';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import LoadingButton from '@mui/lab/LoadingButton';
-// import { useDeleteContactMutation } from 'services/contactsAPI';
+import { useDispatch } from 'react-redux';
+import { actions } from 'redux/usersManagement';
+import { useDeleteUserMutation } from 'redux/usersAPI';
 
-// const customColumnStyle = {
-//   wordWrap: 'break-word',
-//   maxWidth: '1px',
-// };
+const customColumnStyle = {
+  wordWrap: 'break-word',
+};
 
 const UsersTableRow = ({
   id,
@@ -18,36 +19,37 @@ const UsersTableRow = ({
   email,
   createdAt,
 }) => {
-  //   const [onDelete, { isLoading: isDeleting }] = useDeleteContactMutation();
+  const [onDelete, { isLoading: isDeleting }] = useDeleteUserMutation();
+  const dispatch = useDispatch();
 
   return (
     <TableRow hover role="listitem" tabIndex={-1}>
       <TableCell align="center">{name}</TableCell>
       <TableCell align="center">{surname}</TableCell>
-      <TableCell align="center" style={{ wordWrap: 'break-word' }}>
+      <TableCell align="center" style={customColumnStyle}>
         {birthday}
       </TableCell>
       <TableCell align="center">{phone}</TableCell>
-      <TableCell align="center" style={{ wordWrap: 'break-word' }}>
+      <TableCell align="center" style={customColumnStyle}>
         {email}
       </TableCell>
-      <TableCell align="center" style={{ wordWrap: 'break-word' }}>
+      <TableCell align="center" style={customColumnStyle}>
         {createdAt}
       </TableCell>
       <TableCell align="center">
         <LoadingButton
-          //   onClick={() => onDelete(id)}
+          onClick={() => dispatch(actions.openModalUdateUser(true))}
           variant="outlined"
         >
           Update
         </LoadingButton>
         <LoadingButton
-          //   onClick={() => onDelete(id)}
-          //   disabled={isDeleting}
-          //   loading={isDeleting}
+          onClick={() => onDelete(id)}
+          disabled={isDeleting}
+          loading={isDeleting}
           loadingIndicator="Deleting..."
           variant="outlined"
-          sx={{ marginLeft: '7px' }}
+          sx={{ ml: '7px' }}
         >
           Delete
         </LoadingButton>

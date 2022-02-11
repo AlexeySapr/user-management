@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import { filter } from './phonebook/phonebook-reducer';
+import managementReducer from './usersManagement/management-reducer';
 import { usersApi } from './usersAPI';
 
 export const store = configureStore({
   reducer: {
-    // filter,
+    managementReducer,
     [usersApi.reducerPath]: usersApi.reducer,
   },
   middleware: getDefaultMiddleware => [

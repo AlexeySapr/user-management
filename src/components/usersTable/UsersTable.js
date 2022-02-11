@@ -33,8 +33,6 @@ const UsersTable = ({ users }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const copyUsers = [...users];
-
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     console.log('property: ', property);
@@ -46,7 +44,6 @@ const UsersTable = ({ users }) => {
   };
 
   const handleChangePage = (event, newPage) => {
-    console.log('event: ', event);
     setPage(newPage);
   };
 
@@ -86,7 +83,7 @@ const UsersTable = ({ users }) => {
             />
 
             <TableBody>
-              {copyUsers
+              {users
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(user => (

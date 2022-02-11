@@ -7,6 +7,7 @@ const FilterSection = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-around',
+  marginBottom: '16px',
 }));
 
 export default FilterSection;
