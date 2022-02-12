@@ -19,8 +19,6 @@ const getInputProps = type => {
     case 'email':
       return {
         type: 'email',
-        // pattern: '^[^s@]+@[^s@]+.[^s@]+$',
-        title: 'Email may contain @ symbol',
       };
 
     default:
