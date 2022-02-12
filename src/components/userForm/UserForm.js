@@ -9,6 +9,12 @@ import {
   useUpdateUserMutation,
 } from 'redux/usersAPI';
 
+import {
+  useValidateName,
+  useValidateSurname,
+  useValidateEmail,
+} from 'validateHooks/validateHooks';
+
 import Button from '@mui/material/Button';
 
 import { FormUser } from './FormUser.styled';
@@ -28,6 +34,10 @@ const getUserByID = (usersArr, userID) => {
 
 const UserForm = ({ closeModal }) => {
   const [formValues, setFormValues] = useState(() => initState);
+  const [isNameError, nameErrorText] = useValidateName(formValues);
+  const [isSurnameError, surnameErrorText] = useValidateSurname(formValues);
+  const [isEmailError, emailErrorText] = useValidateEmail(formValues);
+
   const isModalAddUserOpen = useSelector(selectors.getOpenModalAddUser);
   const isModalUpdateUserOpen = useSelector(selectors.getOpenModalUpdateUser);
   const updateUserID = useSelector(selectors.getUpdateUserID);
@@ -84,12 +94,16 @@ const UserForm = ({ closeModal }) => {
           name={'name'}
           value={formValues.name}
           onChange={handleChange}
+          error={isNameError}
+          errorText={nameErrorText}
         />
         <InputField
           label={'Surname'}
           name={'surname'}
           value={formValues.surname}
           onChange={handleChange}
+          error={isSurnameError}
+          errorText={surnameErrorText}
         />
         <InputField
           label={'Birthday'}
@@ -108,6 +122,8 @@ const UserForm = ({ closeModal }) => {
           name={'email'}
           value={formValues.email}
           onChange={handleChange}
+          error={isEmailError}
+          errorText={emailErrorText}
         />
         <Button type="submit" variant="outlined">
           {isModalAddUserOpen && 'Add user'}

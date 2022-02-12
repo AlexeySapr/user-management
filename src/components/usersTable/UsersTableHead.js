@@ -29,7 +29,7 @@ const headCells = [
   },
   {
     id: 'create',
-    label: 'Created At',
+    label: 'Created/Updated',
   },
 ];
 

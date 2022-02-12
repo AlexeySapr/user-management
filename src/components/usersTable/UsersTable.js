@@ -71,7 +71,6 @@ const UsersTable = ({ users }) => {
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
           <Table
-            // sx={{ minWidth: 300 }}
             aria-labelledby="tableTitle"
             size={'normal'}
             style={{ tableLayout: 'fixed' }}
