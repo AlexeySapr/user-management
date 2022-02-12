@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { actions } from 'redux/usersManagement';
 
@@ -16,6 +17,7 @@ const App = () => {
 
   return (
     <>
+      <Toaster />
       <Header />
       <Container maxWidth="lg">
         <FilterSection>

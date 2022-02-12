@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { selectors, actions } from 'redux/usersManagement';
+
 import Modal from '@mui/material/Modal';
 import { FormContainer } from './UserModal.styled';
 import UserForm from 'components/userForm/UserForm';
@@ -19,7 +20,7 @@ const UserModal = () => {
   };
 
   return (
-    <div>
+    <>
       <Modal
         open={isModalAddUserOpen || isModalUpdateUserOpen}
         onClose={handleClose}
@@ -30,7 +31,7 @@ const UserModal = () => {
           <UserForm closeModal={handleClose} />
         </FormContainer>
       </Modal>
-    </div>
+    </>
   );
 };
 

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
+import toast from 'react-hot-toast';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import Button from '@mui/material/Button';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { useDispatch } from 'react-redux';
 import { actions } from 'redux/usersManagement';
 import { useDeleteUserMutation } from 'redux/usersAPI';
@@ -48,7 +48,12 @@ const UsersTableRow = ({
           Update
         </Button>
         <DeleteButton
-          onClick={() => onDelete(id)}
+          onClick={() => {
+            onDelete(id);
+            if (!isDeleting) {
+              toast.success(`User ${name} ${surname} successfully deleted`);
+            }
+          }}
           disabled={isDeleting}
           loading={isDeleting}
           loadingIndicator="Deleting..."

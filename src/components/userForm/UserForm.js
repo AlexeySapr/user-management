@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 import { useSelector } from 'react-redux';
 import { selectors } from 'redux/usersManagement';
 import {
-  useGetUserQuery,
+  useGetUsersQuery,
   useAddUserMutation,
   useUpdateUserMutation,
 } from 'redux/usersAPI';
@@ -22,27 +22,27 @@ const initState = {
   email: '',
 };
 
+const getUserByID = (usersArr, userID) => {
+  return usersArr.filter(user => user.id === userID)[0];
+};
+
 const UserForm = ({ closeModal }) => {
   const [formValues, setFormValues] = useState(() => initState);
   const isModalAddUserOpen = useSelector(selectors.getOpenModalAddUser);
   const isModalUpdateUserOpen = useSelector(selectors.getOpenModalUpdateUser);
   const updateUserID = useSelector(selectors.getUpdateUserID);
-  const { data: userData } = useGetUserQuery(updateUserID, {
-    skip: isModalAddUserOpen,
-  });
+
+  const { data: users } = useGetUsersQuery();
+  const currentUser = getUserByID(users, updateUserID);
 
   useEffect(() => {
-    if (isModalUpdateUserOpen && userData) {
-      setFormValues({ ...userData });
+    if (isModalUpdateUserOpen && currentUser) {
+      setFormValues({ ...currentUser });
     }
-  }, [isModalUpdateUserOpen, userData]);
+  }, [currentUser, isModalUpdateUserOpen]);
 
-  const [addUser, { error: addError }] = useAddUserMutation();
-  console.log('addError: ', addError);
-  const [updateUser, { error: updateError, isSuccess }] =
-    useUpdateUserMutation();
-  console.log('isSuccess: ', isSuccess);
-  console.log('updateError: ', updateError);
+  const [addUser] = useAddUserMutation();
+  const [updateUser] = useUpdateUserMutation();
 
   const handleChange = event => {
     setFormValues({
@@ -55,6 +55,9 @@ const UserForm = ({ closeModal }) => {
     event.preventDefault();
 
     if (isModalUpdateUserOpen) {
+      toast.success(
+        `User ${formValues.name} ${formValues.surname} successfully updated`,
+      );
       updateUser({
         updateUserID,
         ...formValues,
@@ -63,6 +66,9 @@ const UserForm = ({ closeModal }) => {
     }
     if (isModalAddUserOpen) {
       addUser(formValues);
+      toast.success(
+        `User ${formValues.name} ${formValues.surname} successfully added`,
+      );
     }
 
     setFormValues(initState);
@@ -72,7 +78,6 @@ const UserForm = ({ closeModal }) => {
 
   return (
     <>
-      <Toaster />
       <FormUser onSubmit={onSubmit}>
         <InputField
           label={'Name'}
