@@ -9,7 +9,7 @@ const UserNameFilter = () => {
   return (
     <TextField
       id="standard-basic"
-      label="Find user"
+      label="Find user by name"
       name="filter"
       value={filter}
       onChange={event =>
