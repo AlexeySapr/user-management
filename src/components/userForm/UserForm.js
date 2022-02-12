@@ -13,7 +13,7 @@ import {
   useValidateName,
   useValidateSurname,
   useValidateEmail,
-} from 'validateHooks/validateHooks';
+} from 'components/validateHooks/validateHooks';
 
 import Button from '@mui/material/Button';
 

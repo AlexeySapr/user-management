@@ -6,7 +6,6 @@ import { store } from 'redux/store';
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-// import 'index.css';
 import App from 'App';
 
 let theme = createTheme();
