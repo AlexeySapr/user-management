@@ -1,13 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { actions } from 'redux/usersManagement';
 
-import { Container } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import FilterSection from 'components/filterSection/FilterSection.styled';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+
 import Header from 'components/header/Header';
 import UserNameFilter from 'components/filterSection/UserNameFilter';
 import FilteredUsersTable from 'components/usersTable/FilteredUsersTable';
 import UserModal from 'components/modal/UserModal';
+
+import FilterSection from 'components/filterSection/FilterSection.styled';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -17,12 +19,12 @@ const App = () => {
       <Header />
       <Container maxWidth="lg">
         <FilterSection>
-          <LoadingButton
+          <Button
             onClick={() => dispatch(actions.openModalAddUser(true))}
             variant="outlined"
           >
             Add new user
-          </LoadingButton>
+          </Button>
           <UserNameFilter />
         </FilterSection>
         <FilteredUsersTable />

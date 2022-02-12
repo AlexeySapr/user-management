@@ -1,25 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { selectors, actions } from 'redux/usersManagement';
-import { useAddUserMutation, useUpdateUserMutation } from 'redux/usersAPI';
+import { useSelector } from 'react-redux';
+import { selectors } from 'redux/usersManagement';
+import {
+  useGetUserQuery,
+  useAddUserMutation,
+  useUpdateUserMutation,
+} from 'redux/usersAPI';
 
-import LoadingButton from '@mui/lab/LoadingButton';
+import Button from '@mui/material/Button';
 
 import { FormUser } from './FormUser.styled';
 import InputField from './InputField';
 
-const initState = { name: '', surname: '', birthday: '', phone: '', email: '' };
+const initState = {
+  name: '',
+  surname: '',
+  birthday: '',
+  phone: '',
+  email: '',
+};
 
-const UserForm = ({ closeModal, isAddUser, isUpdateUser }) => {
+const UserForm = ({ closeModal }) => {
   const [formValues, setFormValues] = useState(() => initState);
   const isModalAddUserOpen = useSelector(selectors.getOpenModalAddUser);
   const isModalUpdateUserOpen = useSelector(selectors.getOpenModalUpdateUser);
   const updateUserID = useSelector(selectors.getUpdateUserID);
+  const { data: userData } = useGetUserQuery(updateUserID, {
+    skip: isModalAddUserOpen,
+  });
 
-  const [addUser, { isLoading }] = useAddUserMutation();
-  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
+  useEffect(() => {
+    if (isModalUpdateUserOpen && userData) {
+      setFormValues({ ...userData });
+    }
+  }, [isModalUpdateUserOpen, userData]);
+
+  const [addUser, { error: addError }] = useAddUserMutation();
+  console.log('addError: ', addError);
+  const [updateUser, { error: updateError, isSuccess }] =
+    useUpdateUserMutation();
+  console.log('isSuccess: ', isSuccess);
+  console.log('updateError: ', updateError);
 
   const handleChange = event => {
     setFormValues({
@@ -31,12 +54,19 @@ const UserForm = ({ closeModal, isAddUser, isUpdateUser }) => {
   const onSubmit = event => {
     event.preventDefault();
 
-    console.log('formValues: ', formValues);
+    if (isModalUpdateUserOpen) {
+      updateUser({
+        updateUserID,
+        ...formValues,
+        createdAt: new Date().toLocaleString(),
+      });
+    }
+    if (isModalAddUserOpen) {
+      addUser(formValues);
+    }
 
-    updateUser({ updateUserID, ...formValues });
+    setFormValues(initState);
 
-    // addUser(formValues);
-    // setFormValues(initState);
     closeModal();
   };
 
@@ -74,15 +104,10 @@ const UserForm = ({ closeModal, isAddUser, isUpdateUser }) => {
           value={formValues.email}
           onChange={handleChange}
         />
-        <LoadingButton
-          type="submit"
-          loading={isLoading}
-          disabled={isLoading}
-          loadingIndicator="Adding..."
-          variant="outlined"
-        >
-          Add contact
-        </LoadingButton>
+        <Button type="submit" variant="outlined">
+          {isModalAddUserOpen && 'Add user'}
+          {isModalUpdateUserOpen && 'Update user'}
+        </Button>
       </FormUser>
     </>
   );

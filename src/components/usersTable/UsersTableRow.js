@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useDispatch } from 'react-redux';
 import { actions } from 'redux/usersManagement';
 import { useDeleteUserMutation } from 'redux/usersAPI';
+import { DeleteButton } from './UsersTable.styled';
 
 const customColumnStyle = {
   wordWrap: 'break-word',
@@ -37,24 +39,23 @@ const UsersTableRow = ({
         {createdAt}
       </TableCell>
       <TableCell align="center">
-        <LoadingButton
+        <Button
           onClick={() =>
             dispatch(actions.openModalUdateUser({ id, isModalopen: true }))
           }
           variant="outlined"
         >
           Update
-        </LoadingButton>
-        <LoadingButton
+        </Button>
+        <DeleteButton
           onClick={() => onDelete(id)}
           disabled={isDeleting}
           loading={isDeleting}
           loadingIndicator="Deleting..."
           variant="outlined"
-          sx={{ m: '5px' }}
         >
           Delete
-        </LoadingButton>
+        </DeleteButton>
       </TableCell>
     </TableRow>
   );

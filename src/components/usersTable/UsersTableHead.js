@@ -4,7 +4,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 
-import { UserTableHeadCell } from './UserTableHeadCell.styled';
+import { UserTableHeadCell } from './UsersTable.styled';
 
 const headCells = [
   {
